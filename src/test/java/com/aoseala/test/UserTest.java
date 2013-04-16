@@ -24,14 +24,15 @@ import com.aoseala.test.service.UserService;
  * @author Owner
  * 
  */
-//整合
+// 整合
 @RunWith(SpringJUnit4ClassRunner.class)
-//加载配置
+// 加载配置
 @ContextConfiguration(locations = "classpath:root-context.xml")
 public class UserTest {
-	
-	@Autowired // 注入
-    private UserService userService;
+
+	@Autowired
+	// 注入
+	private UserService userService;
 
 	/**
 	 * @throws java.lang.Exception
@@ -66,15 +67,23 @@ public class UserTest {
 		User user = new User();
 		user.setUsername("Aoseala");
 		user.setUserage(20);
-		user.setUseraddress("人民路"); 
-		assertTrue(this.userService.insert(user)>0);
+		user.setUseraddress("人民路");
+		assertTrue(this.userService.insert(user) > 0);
 	}
-	
+
 	@Test
-	public void testSelect(){
+	public void testSelect() {
 		List<User> list = this.userService.findAll();
-		for(User user:list)
+		for (User user : list)
 			System.out.println(user.getUsername());
+	}
+
+	@Test
+	public void testUpdateByPkSelective() {
+		User user = new User();
+		user.setId(1);
+		user.setUseraddress("广西 桂林市 七星区");
+		System.out.println("影响的行数："+this.userService.updateByPkSelectvie(user));
 	}
 
 }

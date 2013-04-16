@@ -8,4 +8,6 @@ public interface UserService {
 	public int insert(final User user);
 	
 	public List<User> findAll();
+	
+	public int updateByPkSelectvie(final User user);
 }

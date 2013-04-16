@@ -9,7 +9,8 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:component-scan base-package="com.aoseala.test"></context:component-scan>
-
+	<aop:aspectj-autoproxy /> 
+	
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
 		p:location="/WEB-INF/jdbc.properties" />
@@ -29,7 +30,7 @@
 		<property name="initialSize" value="1" />
 		<property name="maxWait" value="60000" />
 		<property name="minIdle" value="1" />
-		
+
 		<property name="timeBetweenEvictionRunsMillis" value="3000" />
 		<property name="minEvictableIdleTimeMillis" value="300000" />
 
@@ -48,11 +49,35 @@
 		<!--configLocation属性指定mybatis的核心配置文件 -->
 		<property name="configLocation" value="/WEB-INF/conf/mybatis-config.xml" />
 		<!-- 所有配置的mapper文件 -->
-		<property name="mapperLocations" value="classpath*:resources/com/aoseala/test/persistence/*.xml" />
+		<property name="mapperLocations"
+			value="classpath*:resources/com/aoseala/test/persistence/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.aoseala.test.persistence" />
 	</bean>
+
+	<!-- Declare a transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+	<aop:config>
+		<aop:pointcut id="txPointCut" expression="execution(* com.aoseala.test.service..*.*(..))" />
+		<aop:advisor pointcut-ref="txPointCut" advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="delete*" />
+			<tx:method name="save*" read-only="true" />
+			<tx:method name="update*" />
+			<tx:method name="insert*" />
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
 
 </beans>
