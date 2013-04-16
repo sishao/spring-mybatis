@@ -10,4 +10,6 @@ public interface UserService {
 	public List<User> findAll();
 	
 	public int updateByPkSelectvie(final User user);
+	
+	public int deleteByPk(final int pk);
 }

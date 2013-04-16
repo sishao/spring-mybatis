@@ -65,8 +65,8 @@ public class UserTest {
 	@Test
 	public void testInsert() {
 		User user = new User();
-		user.setUsername("Aoseala");
-		user.setUserage(20);
+		user.setUsername("杨晓华");
+		user.setUserage(23);
 		user.setUseraddress("人民路");
 		assertTrue(this.userService.insert(user) > 0);
 	}
@@ -83,7 +83,13 @@ public class UserTest {
 		User user = new User();
 		user.setId(1);
 		user.setUseraddress("广西 桂林市 七星区");
-		System.out.println("影响的行数："+this.userService.updateByPkSelectvie(user));
+		System.out.println("影响的行数："
+				+ this.userService.updateByPkSelectvie(user));
+	}
+
+	@Test
+	public void testDeleteByPk() {
+		System.out.println("影响的行数：" + this.userService.deleteByPk(2));
 	}
 
 }
