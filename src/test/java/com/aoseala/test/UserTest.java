@@ -6,6 +6,7 @@ package com.aoseala.test;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.aoseala.test.domain.Post;
 import com.aoseala.test.domain.User;
 import com.aoseala.test.service.UserService;
 
@@ -90,6 +92,30 @@ public class UserTest {
 	@Test
 	public void testDeleteByPk() {
 		System.out.println("影响的行数：" + this.userService.deleteByPk(2));
+	}
+
+	@Test
+	public void testSelectPostUser() {
+		List<Map<String, Object>> list = this.userService.selectPostUser(1);
+		for (Map<String, Object> map : list) {
+			System.out.println(map.get("userName"));
+			System.out.println(map.get("title"));
+			System.out.println(map.get("content"));
+			System.out.println(map.get("createtime"));
+			System.out.println("-----------------------------------");
+		}
+	}
+
+	@Test
+	public void testGetById() {
+		User user = this.userService.getById(1);
+		List<Post> list = user.getPosts();
+		System.out.println(list.size());
+		if (list.size() > 0)
+			for (Post post : list) {
+				System.out.println(post.getTitle()+"-----"+post.getContent());
+				System.out.println(post.getUser().getUsername());
+			}
 	}
 
 }

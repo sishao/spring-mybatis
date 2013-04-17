@@ -5,6 +5,7 @@ package com.aoseala.test.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int deleteByPk(int pk) {
 		return this.userMapper.deleteByPrimaryKey(pk);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectPostUser(int id) {
+		// TODO Auto-generated method stub
+		return this.postMapper.selectPostUser(id);
+	}
+
+	@Override
+	public User getById(int id) {
+		return this.userMapper.getById(id);
 	}
 
 }

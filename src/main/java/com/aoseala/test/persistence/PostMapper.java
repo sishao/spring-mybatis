@@ -1,9 +1,12 @@
 package com.aoseala.test.persistence;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.aoseala.test.domain.Post;
 import com.aoseala.test.domain.PostExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface PostMapper {
     /**
@@ -117,4 +120,6 @@ public interface PostMapper {
      * @mbggenerated Tue Apr 16 11:09:59 CST 2013
      */
     int updateByPrimaryKey(Post record);
+    
+    List<Map<String,Object>> selectPostUser(final int id);
 }

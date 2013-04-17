@@ -25,23 +25,7 @@
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
 
-		<property name="filters" value="stat" />
 
-		<property name="maxActive" value="20" />
-		<property name="initialSize" value="1" />
-		<property name="maxWait" value="60000" />
-		<property name="minIdle" value="1" />
-
-		<property name="timeBetweenEvictionRunsMillis" value="3000" />
-		<property name="minEvictableIdleTimeMillis" value="300000" />
-
-		<property name="validationQuery" value="SELECT 'x'" />
-		<property name="testWhileIdle" value="true" />
-		<property name="testOnBorrow" value="false" />
-		<property name="testOnReturn" value="false" />
-
-		<property name="maxPoolPreparedStatementPerConnectionSize"
-			value="20" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
